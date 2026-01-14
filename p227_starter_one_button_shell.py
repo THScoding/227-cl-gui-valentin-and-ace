@@ -16,8 +16,8 @@ def do_command(command):
     if (len(url_val) == 0):
         url_val = "127.0.0.1"
         #url_val = "::1"
-
-    with subprocess.Popen(command + ' ' + url_val, stdout=subprocess.PIPE, bufsize=1, universal_newlines=True) as p:
+    #comList = [command, url_val]
+    with subprocess.Popen(["ping",url_val], stdout=subprocess.PIPE, bufsize=1, universal_newlines=True) as p:
         for line in p.stdout:
             command_textbox.insert(tk.END,line)
             command_textbox.update()
