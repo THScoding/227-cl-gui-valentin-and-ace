@@ -4,6 +4,7 @@ import tkinter as tk
 import tkinter.scrolledtext as tksc
 from tkinter import filedialog
 from tkinter.filedialog import asksaveasfilename
+import platform
 
 def do_command(command):
 
@@ -15,9 +16,24 @@ def do_command(command):
     url_val = url_entry.get()
     if (len(url_val) == 0):
         url_val = "127.0.0.1"
-        #url_val = "::1"
+    final_command = ""
+    if platform.system() == "Linux" or platform.system() == "Darwin":
+        if command == "ping":
+            final_command = command + " " + url_val + " -c 4" 
+            
+        if command == "tracert":
+            command = "traceroute"
+            final_command = command + " " + url_val
+            
+    elif platform.system() == "Windows":
+        if command == "ping":
+            final_command = command + " " + url_val + " -n 4"
+        if command == "tracert":
+            final_command = command + " " + url_val
+        
+    
     #comList = [command, url_val]
-    with subprocess.Popen(["ping",url_val], stdout=subprocess.PIPE, bufsize=1, universal_newlines=True) as p:
+    with subprocess.Popen([final_command], shell=True, stdout=subprocess.PIPE, bufsize=1, universal_newlines=True) as p:
         for line in p.stdout:
             command_textbox.insert(tk.END,line)
             command_textbox.update()
@@ -59,12 +75,22 @@ ping_btn = tk.Button(frame, text="Check to see if a URL is up and active",
     font=("comic sans", 12),
     bd=0, 
     relief="flat",
-    cursor="heart",
+    cursor="dotbox",
     bg="white", activebackground="gray")
 ping_btn.pack() 
+
+trace_btn = tk.Button(frame, text="Tracert the URL", 
+    command=lambda:do_command("tracert"),
+    compound="center",
+    font=("comic sans", 12),
+    bd=0, 
+    relief="flat",
+    cursor="dotbox",
+    bg="white", activebackground="gray")
+trace_btn.pack() 
 # Adds an output box to GUI.
 command_textbox = tksc.ScrolledText(frame, height=10, width=100)
-command_textbox.pack()
+command_textbox.pack(side=tk.BOTTOM)
 
 def mSave():
     filename = asksaveasfilename(defaultextension='.txt',filetypes = (('Text files', '*.txt'),('Python files', '*.py *.pyw'),('All files', '*.*')))
@@ -77,6 +103,6 @@ def mSave():
     file.close()
 
 save_button = tk.Button(frame, text="Save Output", command=mSave)
-save_button.pack()
+save_button.pack(side=tk.LEFT)
 
 root.mainloop()
