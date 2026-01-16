@@ -25,6 +25,9 @@ def do_command(command):
             command = "traceroute"
             final_command = command + " " + url_val
             
+        if command == "nmap":
+            final_command = command + " " + url_val
+            
     elif platform.system() == "Windows":
         if command == "ping":
             final_command = command + " " + url_val + " -n 4"
@@ -33,7 +36,7 @@ def do_command(command):
         
     
     #comList = [command, url_val]
-    with subprocess.Popen([final_command], shell=True, stdout=subprocess.PIPE, bufsize=1, universal_newlines=True) as p:
+    with subprocess.Popen(final_command, shell=True, stdout=subprocess.PIPE, bufsize=1, universal_newlines=True) as p:
         for line in p.stdout:
             command_textbox.insert(tk.END,line)
             command_textbox.update()
