@@ -101,6 +101,15 @@ nmap_btn = tk.Button(frame, text="Nmap the URL (if nmap is installed)",
     cursor="dotbox",
     bg="white", activebackground="gray")
 nmap_btn.pack()
+#listbox list and making listbox
+listbox_list = []
+list_btns = tk.Listbox(frame, height=10, listvariable= listbox_list)
+#making all the list choices
+list_btns.insert(0,"")
+list_btns.insert(0,"trace_btn")
+list_btns.insert(0,"ping_btn")
+list_btns.insert(0,"")
+list_btns.pack()
 # Adds an output box to GUI.
 command_textbox = tksc.ScrolledText(frame, height=10, width=100)
 command_textbox.pack(side=tk.BOTTOM)
