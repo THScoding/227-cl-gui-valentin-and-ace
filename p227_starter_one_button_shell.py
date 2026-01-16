@@ -33,7 +33,8 @@ def do_command(command):
             final_command = command + " " + url_val + " -n 4"
         if command == "tracert":
             final_command = command + " " + url_val
-        
+        if command == "nmap":
+            final_command = command + " " + url_val
     
     #comList = [command, url_val]
     with subprocess.Popen(final_command, shell=True, stdout=subprocess.PIPE, bufsize=1, universal_newlines=True) as p:
@@ -111,7 +112,7 @@ list_btns.insert(0,"ping_btn")
 list_btns.insert(0,"")
 list_btns.pack()
 # Adds an output box to GUI.
-command_textbox = tksc.ScrolledText(frame, height=10, width=100)
+command_textbox = tksc.ScrolledText(frame, height=20, width=100)
 command_textbox.pack(side=tk.BOTTOM)
 
 def mSave():
