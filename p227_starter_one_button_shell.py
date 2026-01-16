@@ -88,6 +88,16 @@ trace_btn = tk.Button(frame, text="Tracert the URL",
     cursor="dotbox",
     bg="white", activebackground="gray")
 trace_btn.pack() 
+
+nmap_btn = tk.Button(frame, text="Nmap the URL (if nmap is installed)", 
+    command=lambda:do_command("nmap"),
+    compound="center",
+    font=("comic sans", 12),
+    bd=0, 
+    relief="flat",
+    cursor="dotbox",
+    bg="white", activebackground="gray")
+nmap_btn.pack()
 # Adds an output box to GUI.
 command_textbox = tksc.ScrolledText(frame, height=10, width=100)
 command_textbox.pack(side=tk.BOTTOM)
