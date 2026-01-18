@@ -80,7 +80,7 @@ ping_btn = tk.Button(frame, text="Check to see if a URL is up and active",
     bd=0, 
     relief="flat",
     cursor="dotbox",
-    bg="white", activebackground="gray")
+    bg="light blue", activebackground="gray")
 ping_btn.pack() 
 
 trace_btn = tk.Button(frame, text="Tracert the URL", 
@@ -90,7 +90,7 @@ trace_btn = tk.Button(frame, text="Tracert the URL",
     bd=0, 
     relief="flat",
     cursor="dotbox",
-    bg="white", activebackground="gray")
+    bg="light green", activebackground="gray")
 trace_btn.pack() 
 
 nmap_btn = tk.Button(frame, text="Nmap the URL (if nmap is installed)", 
@@ -100,7 +100,7 @@ nmap_btn = tk.Button(frame, text="Nmap the URL (if nmap is installed)",
     bd=0, 
     relief="flat",
     cursor="dotbox",
-    bg="white", activebackground="gray")
+    bg="yellow", activebackground="gray")
 nmap_btn.pack()
 #listbox list and making listbox
 listbox_list = []
