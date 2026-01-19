@@ -49,8 +49,8 @@ frame = tk.Frame(root)
 frame.pack()
 
 # set up button to run the do_command function
-ping_btn = tk.Button(frame, text="ping", command=lambda: do_command("ping"))
-ping_btn.pack()
+'''ping_btn = tk.Button(frame, text="ping", command=lambda: do_command("ping"))
+ping_btn.pack()'''
 
 # creates the frame with label for the text box
 frame_URL = tk.Frame(root, pady=10,  bg="black") # change frame color
@@ -66,14 +66,14 @@ url_label = tk.Label(frame_URL, text="Enter a URL of interest: ",
     cursor="heart",
     fg="mediumpurple3",
     bg="black")
-url_label.pack(side=tk.LEFT)
+url_label.pack(side=tk.TOP)
 url_entry= tk.Entry(frame_URL,  font=("comic sans", 14)) # change font
-url_entry.pack(side=tk.LEFT)
+url_entry.pack(side=tk.TOP)
 
 frame = tk.Frame(root,  bg="black") # change frame color
 frame.pack()
 
-ping_btn = tk.Button(frame, text="Check to see if a URL is up and active", 
+'''ping_btn = tk.Button(frame, text="Check to see if a URL is up and active", 
     command=lambda:do_command("ping"),
     compound="center",
     font=("comic sans", 12),
@@ -101,16 +101,30 @@ nmap_btn = tk.Button(frame, text="Nmap the URL (if nmap is installed)",
     relief="flat",
     cursor="dotbox",
     bg="yellow", activebackground="gray")
-nmap_btn.pack()
+nmap_btn.pack()'''
+
 #listbox list and making listbox
-listbox_list = []
-list_btns = tk.Listbox(frame, height=10, listvariable= listbox_list)
-#making all the list choices
-list_btns.insert(0,"")
-list_btns.insert(0,"trace_btn")
-list_btns.insert(0,"ping_btn")
-list_btns.insert(0,"")
-list_btns.pack()
+listbox_list = ["ping", "tracert", "nmap"]
+choice_var = tk.StringVar(value=listbox_list)
+list_btns = tk.Listbox(frame, height=10, listvariable=choice_var)
+
+choice_var.set(listbox_list)
+
+def invokeAction(selection):
+    if len(selection) == 0:
+        return
+    selected_command = listbox_list[selection[0]]
+    do_command(selected_command)
+    
+#list_btns.bind("<Double-1>", lambda e: invokeAction(list_btns.curselection())) #Double click to do action
+
+list_btns.pack(side=tk.TOP)
+
+do_btn = tk.Button(frame, text="Do Selected Command", command=lambda: invokeAction(list_btns.curselection()))
+do_btn.pack()
+
+
+
 # Adds an output box to GUI.
 command_textbox = tksc.ScrolledText(frame, height=20, width=100)
 command_textbox.pack(side=tk.BOTTOM)
